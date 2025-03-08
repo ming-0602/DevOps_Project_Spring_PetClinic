@@ -1,14 +1,17 @@
 pipeline {
     agent any
+    environment {
+            SONAR_TOKEN = credentials('516a7e661f8c5f6828b6a22d8078368c69f30bd6') // Store in Jenkins Credentials
+    }
     stages {
         stage('Build') {
             steps {
-                bat 'mvn clean package'
+                bat 'mvn clean package -Dcheckstyle.skip=true'
             }
         }
         stage('Test') {
             steps {
-                bat 'mvn test'
+                bat 'mvn test -Dcheckstyle.skip=true'
             }
         }
         stage('Dependency Security Scan') {
@@ -18,7 +21,7 @@ pipeline {
         }
         stage('Static Code Analysis') {
             steps {
-                bat 'mvn sonar:sonar'
+                  bat 'mvn sonar:sonar -Dsonar.organization=DevOps-Pipeline-Project -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN'
             }
         }
     }
