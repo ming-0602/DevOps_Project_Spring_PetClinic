@@ -16,5 +16,10 @@ pipeline {
                 bat 'dependency-check.bat --scan . --format HTML --out reports/'
             }
         }
+        stage('Static Code Analysis') {
+            steps {
+                bat 'mvn sonar:sonar'
+            }
+        }
     }
 }
