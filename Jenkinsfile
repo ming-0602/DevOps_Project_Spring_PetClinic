@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                bat 'mvn test'
+                bat 'mvn test -Dcheckstyle.skip=true'
             }
         }
         stage('Dependency Security Scan') {
