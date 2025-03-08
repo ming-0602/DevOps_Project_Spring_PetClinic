@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Static Code Analysis') {
             steps {
-                  bat 'mvn sonar:sonar -Dsonar.organization=DevOps-Pipeline-Project -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN'
+                  bat "mvn sonar:sonar -Dsonar.organization=DevOps-Pipeline-Project -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=%SONAR_TOKEN%"
             }
         }
     }
