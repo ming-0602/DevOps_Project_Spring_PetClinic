@@ -183,10 +183,7 @@
                 <configLocation>src/checkstyle/nohttp-checkstyle.xml</configLocation>
                 <sourceDirectories>${basedir}</sourceDirectories>
                 <includes>**/*</includes>
-                <excludes>
-                    <!-- ✅ Disable the NoHttpCheck rule -->
-                    <exclude>io.spring.nohttp.checkstyle.check.NoHttpCheck</exclude>
-                </excludes>
+                <excludes>**/io/spring/nohttp/checkstyle/check/NoHttpCheck.java</excludes>
                 <propertyExpansion>config_loc=${basedir}/src/checkstyle/</propertyExpansion>
             </configuration>
         </execution>
