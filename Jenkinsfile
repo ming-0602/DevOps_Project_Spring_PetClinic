@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-            SONAR_TOKEN = credentials('516a7e661f8c5f6828b6a22d8078368c69f30bd6') // Store in Jenkins Credentials
+            SONAR_TOKEN = credentials('SonarCloud-Token') // Store in Jenkins Credentials
     }
     stages {
         stage('Build') {
