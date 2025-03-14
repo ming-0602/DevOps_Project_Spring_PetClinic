@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                bat 'mvn test -Dspring.profiles.active=default -DskipITs=true -Dcheckstyle.skip=true'
+                bat 'mvn test -DskipITs=true -Dspring.profiles.active=default  -Dcheckstyle.skip=true'
             }
         }
         stage('Dependency Security Scan') {
