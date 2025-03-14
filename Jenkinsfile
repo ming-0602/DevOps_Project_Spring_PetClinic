@@ -75,8 +75,12 @@ pipeline {
 
         stage('Trivy Scan') {
             steps {
-                bat 'trivy image --severity HIGH,CRITICAL my-app:latest'
+                script {
+                    def trivyPath = "C:\\ProgramData\\chocolatey\\bin\\trivy.exe" // Adjust based on where.exe result
+                    bat "\"${trivyPath}\" image --severity HIGH,CRITICAL my-app:latest"
+                }
             }
         }
+
     }
 }
