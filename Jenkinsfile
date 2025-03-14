@@ -24,5 +24,10 @@ pipeline {
                   bat "mvn sonar:sonar -Dsonar.projectKey=ming-0602_DevOps_Project_Spring_PetClinic -Dsonar.organization=devops-pipeline-project -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=%SONAR_TOKEN%"
             }
         }
+        stage('Docker Build') {
+            steps {
+                bat 'docker build -t my-app:latest .'
+            }
+        }
     }
 }
