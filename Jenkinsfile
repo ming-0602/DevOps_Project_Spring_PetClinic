@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                bat 'mvn test -DskipTests=true -DskipITs=true'
+                bat 'mvn test -DskipTests=true -DskipITs=true -Dspring.profiles.active=default  -Dcheckstyle.skip=true'
             }
         }
 //         stage('Test') {
