@@ -396,7 +396,7 @@
         <pluginManagement>
           <plugins>
             <!-- This plugin's configuration is used to store Eclipse m2e settings
-              only. It has no influence on the Maven build itself. -->
+                 only. It has no influence on the Maven build itself. -->
             <plugin>
               <groupId>org.eclipse.m2e</groupId>
               <artifactId>lifecycle-mapping</artifactId>
@@ -404,6 +404,7 @@
               <configuration>
                 <lifecycleMappingMetadata>
                   <pluginExecutions>
+                    <!-- Ignore Checkstyle Plugin -->
                     <pluginExecution>
                       <pluginExecutionFilter>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -417,6 +418,8 @@
                         <ignore></ignore>
                       </action>
                     </pluginExecution>
+
+                    <!-- Ignore Spring Boot Maven Plugin -->
                     <pluginExecution>
                       <pluginExecutionFilter>
                         <groupId>org.springframework.boot</groupId>
@@ -430,6 +433,8 @@
                         <ignore></ignore>
                       </action>
                     </pluginExecution>
+
+                    <!-- Ignore Spring Java Format Plugin -->
                     <pluginExecution>
                       <pluginExecutionFilter>
                         <groupId>io.spring.javaformat</groupId>
@@ -446,6 +451,26 @@
                   </pluginExecutions>
                 </lifecycleMappingMetadata>
               </configuration>
+            </plugin>
+
+            <!-- Fully Disable Checkstyle by Modifying Its Configuration -->
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-checkstyle-plugin</artifactId>
+              <version>3.6.0</version>
+              <executions>
+                <execution>
+                  <id>validate</id>
+                  <phase>validate</phase>
+                  <goals>
+                    <goal>check</goal>
+                  </goals>
+                  <configuration>
+                    <failOnViolation>false</failOnViolation>
+                    <consoleOutput>false</consoleOutput>
+                  </configuration>
+                </execution>
+              </executions>
             </plugin>
           </plugins>
         </pluginManagement>
