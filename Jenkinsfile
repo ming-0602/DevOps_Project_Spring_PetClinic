@@ -54,14 +54,25 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    def jarExists = fileExists 'target/*.jar'
+                    def jarPath = "target/spring-petclinic-3.4.0-SNAPSHOT.jar"
+                    def workspace = env.WORKSPACE
+
+                    // Print JAR existence
+                    bat "echo Checking JAR file at ${workspace}\\${jarPath}"
+                    bat "dir target"
+
+                    // Ensure the JAR file exists
+                    def jarExists = fileExists(jarPath)
                     if (!jarExists) {
-                        error "ERROR: No JAR file found in target directory! Build failed."
+                        error "ERROR: JAR file not found in target directory! Docker build cannot proceed."
                     }
+
+                    // Run Docker build command
+                    bat "docker build -t my-app:latest --build-arg JAR_FILE=${jarPath} ."
                 }
-                bat 'docker build -t my-app:latest .'
             }
         }
+
         stage('Trivy Scan') {
             steps {
                 bat 'trivy image --severity HIGH,CRITICAL my-app:latest'
