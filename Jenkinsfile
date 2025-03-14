@@ -12,9 +12,14 @@ pipeline {
         stage('Verify JAR Exists') {
             steps {
                 script {
+                    bat 'echo "Current Jenkins Workspace: %CD%"'  // Print the current Jenkins directory
+                    bat 'dir'  // List all files and folders in the current workspace
+                    bat 'dir target'  // List all files inside the target directory
                     def jarExists = fileExists 'target/spring-petclinic-3.4.0-SNAPSHOT.jar'
                     if (!jarExists) {
-                        error "❌ ERROR: JAR file not found in target directory! Build failed."
+                        error "ERROR: JAR file not found in target directory! Build failed."
+                    } else {
+                        echo "JAR file found. Proceeding with deployment."
                     }
                 }
             }
