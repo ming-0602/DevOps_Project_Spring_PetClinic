@@ -9,6 +9,16 @@ pipeline {
                 bat 'mvn clean package -Dcheckstyle.skip=true'
             }
         }
+        stage('Verify JAR Exists') {
+            steps {
+                script {
+                    def jarExists = fileExists 'target/spring-petclinic-3.4.0-SNAPSHOT.jar'
+                    if (!jarExists) {
+                        error "❌ ERROR: JAR file not found in target directory! Build failed."
+                    }
+                }
+            }
+        }
         stage('Test') {
             steps {
                 bat 'mvn test -DskipTests=true -DskipITs=true -Dspring.profiles.active=default  -Dcheckstyle.skip=true'
