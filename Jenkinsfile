@@ -29,5 +29,10 @@ pipeline {
                 bat 'docker build -t my-app:latest .'
             }
         }
+        stage('Trivy Scan') {
+            steps {
+                bat 'trivy image --severity HIGH,CRITICAL my-app:latest'
+            }
+        }
     }
 }
