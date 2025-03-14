@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                bat 'mvn test -DskipTests=true'
+                bat 'mvn test -DskipTests=true -DskipITs=true'
             }
         }
 //         stage('Test') {
