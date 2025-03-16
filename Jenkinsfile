@@ -224,13 +224,12 @@ pipeline {
                 }
             }
         }
-
+//                     cd C:\\Users\\mingx\\.jenkins\\workspace\\spring-petclinic-ci\\ansible-project
         stage('Deploy to AWS EC2 with Ansible') {
             steps {
                 script {
                     bat '''
-                    cd C:\\Users\\mingx\\.jenkins\\workspace\\spring-petclinic-ci\\ansible-project
-                    ansible-playbook -i inventory.ini deploy-app.yml
+                    wsl ansible-playbook -i inventory.ini deploy-app.yml
                     '''
                 }
             }
