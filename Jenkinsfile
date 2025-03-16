@@ -132,20 +132,19 @@ pipeline {
 
     stages {
         stage('Debug Jenkins Environment') {
-                    steps {
-                        script {
-                            sh 'wsl whoami'  // Check which user Jenkins is running as
-                            sh 'wsl ls -l ~/.ssh/DevOpsDeploy.pem'  // Check if Jenkins can access the SSH key
-                        }
-                    }
+            steps {
+                script {
+                    sh 'wsl ls -l ~/.ssh/DevOpsDeploy.pem'  // Verify Jenkins can see the key
                 }
-                stage('Deploy with Ansible') {
-                    steps {
-                        script {
-                            sh 'wsl ssh -o StrictHostKeyChecking=no -i ~/.ssh/DevOpsDeploy.pem ec2-user@54.235.40.107 "cd ~/ansible-project && ansible-playbook -i inventory.ini deploy-app.yml"'
-                        }
-                    }
+            }
+        }
+        stage('Deploy with Ansible') {
+            steps {
+                script {
+                    sh 'wsl ssh -o StrictHostKeyChecking=no -i ~/.ssh/DevOpsDeploy.pem ec2-user@54.235.40.107 "cd ~/ansible-project && ansible-playbook -i inventory.ini deploy-app.yml"'
                 }
+            }
+        }
         
         stage('Checkout Code') {
             steps {
