@@ -106,7 +106,7 @@ pipeline {
                 script {
                     bat '''
                     docker tag my-app:latest %ECR_REPO%:latest
-                    docker push $ECR_REPO:latest
+                    docker push %ECR_REPO%:latest
                     '''
                 }
             }
