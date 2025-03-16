@@ -131,21 +131,6 @@ pipeline {
     }
 
     stages {
-        stage('Debug Jenkins Environment') {
-            steps {
-                script {
-                    sh 'wsl ls -l ~/.ssh/DevOpsDeploy.pem'  // Verify Jenkins can see the key
-                }
-            }
-        }
-        stage('Deploy with Ansible') {
-            steps {
-                script {
-                    sh 'wsl ssh -o StrictHostKeyChecking=no -i ~/.ssh/DevOpsDeploy.pem ec2-user@54.235.40.107 "cd ~/ansible-project && ansible-playbook -i inventory.ini deploy-app.yml"'
-                }
-            }
-        }
-        
         stage('Checkout Code') {
             steps {
                 git 'https://github.com/ming-0602/DevOps_Project_Spring_PetClinic.git'
@@ -243,8 +228,9 @@ pipeline {
         stage('Deploy to AWS EC2') {
             steps {
                 script {
-                    sh '''
-                    wsl ssh -o StrictHostKeyChecking=no -i ~/.ssh/DevOpsDeploy.pem ec2-user@54.235.40.107 "cd ~/ansible-project && ansible-playbook -i inventory.ini deploy-app.yml"
+                    bat '''
+                    set SSH_KEY_PATH=C:\\Users\\mingx\\.ssh\\DevOpsDeploy.pem
+                    wsl ssh -o StrictHostKeyChecking=no -i %SSH_KEY_PATH% ec2-user@54.235.40.107 "cd ~/ansible-project && ansible-playbook -i inventory.ini deploy-app.yml"
                     '''
                 }
             }
