@@ -133,7 +133,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/spring-petclinic/spring-petclinic.git'
+                git 'https://github.com/ming-0602/DevOps_Project_Spring_PetClinic.git'
             }
         }
 
