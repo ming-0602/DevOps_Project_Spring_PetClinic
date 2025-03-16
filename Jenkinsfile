@@ -224,7 +224,7 @@ pipeline {
                 }
             }
         }
-//                     cd C:\\Users\\mingx\\.jenkins\\workspace\\spring-petclinic-ci\\ansible-project
+
         stage('Deploy to AWS EC2') {
             steps {
                 script {
