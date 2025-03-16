@@ -2,11 +2,21 @@ pipeline {
     agent any
     environment {
             SONAR_TOKEN = credentials('SonarCloud-Token') // Store in Jenkins Credentials
+            AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
+            AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+            AWS_SESSION_TOKEN = credentials('AWS_SESSION_TOKEN')
+            AWS_REGION = "us-east-1"
+            ECR_REPO = "805755495314.dkr.ecr.us-east-1.amazonaws.com/my-app"
     }
     stages {
         stage('Build') {
             steps {
                 bat 'mvn clean package -Dcheckstyle.skip=true'
+            }
+        }
+        stage('Test') {
+            steps {
+                bat 'mvn test -DskipTests=true -DskipITs=true -Dspring.profiles.active=default  -Dcheckstyle.skip=true'
             }
         }
         stage('Verify JAR Exists') {
@@ -22,11 +32,6 @@ pipeline {
                         echo "JAR file found. Proceeding with deployment."
                     }
                 }
-            }
-        }
-        stage('Test') {
-            steps {
-                bat 'mvn test -DskipTests=true -DskipITs=true -Dspring.profiles.active=default  -Dcheckstyle.skip=true'
             }
         }
 //         stage('Test') {
@@ -81,6 +86,32 @@ pipeline {
                 }
             }
         }
+
+        stage('Authenticate with AWS ECR') {
+            steps {
+                script {
+                    sh '''
+                    aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+                    aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+                    aws configure set aws_session_token $AWS_SESSION_TOKEN
+                    aws configure set region $AWS_REGION
+                    aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO
+                    '''
+                }
+            }
+        }
+
+        stage('Tag & Push to AWS ECR') {
+            steps {
+                script {
+                    sh '''
+                    docker tag my-app:latest $ECR_REPO:latest
+                    docker push $ECR_REPO:latest
+                    '''
+                }
+            }
+        }
+
 
     }
 }
