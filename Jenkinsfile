@@ -229,8 +229,9 @@ pipeline {
             steps {
                 script {
                     bat '''
-                    set SSH_KEY_PATH=C:\\Users\\mingx\\.ssh\\DevOpsDeploy.pem
-                    wsl ssh -o StrictHostKeyChecking=no -i %SSH_KEY_PATH% ec2-user@54.235.40.107 "cd ~/ansible-project && ansible-playbook -i inventory.ini deploy-app.yml"
+                    copy C:\\Users\\mingx\\.ssh\\DevOpsDeploy.pem .\\key.pem
+                    wsl chmod 600 ./key.pem
+                    wsl ssh -o StrictHostKeyChecking=no -i ./key.pem ec2-user@54.235.40.107 "cd ~/ansible-project && ansible-playbook -i inventory.ini deploy-app.yml"
                     '''
                 }
             }
