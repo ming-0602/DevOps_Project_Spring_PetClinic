@@ -2,9 +2,9 @@ pipeline {
     agent any
     environment {
             SONAR_TOKEN = credentials('SonarCloud-Token') // Store in Jenkins Credentials
-            AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
-            AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
-            AWS_SESSION_TOKEN = credentials('AWS_SESSION_TOKEN')
+            AWS_ACCESS_KEY_ID = credentials('aws_access_key_id')
+            AWS_SECRET_ACCESS_KEY = credentials('aws_secret_access_key')
+            AWS_SESSION_TOKEN = credentials('aws_session_token')
             AWS_REGION = "us-east-1"
             ECR_REPO = "805755495314.dkr.ecr.us-east-1.amazonaws.com/my-app"
     }
