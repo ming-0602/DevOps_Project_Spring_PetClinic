@@ -228,7 +228,7 @@ pipeline {
         stage('Deploy to AWS EC2 with Ansible') {
             steps {
                 script {
-                    bat '''
+                    sh '''
                     ssh -o StrictHostKeyChecking=no -i C:/Users/mingx/.ssh/DevOpsDeploy.pem ec2-user@54.235.40.107 "cd ~/ansible-project && ansible-playbook -i inventory.ini deploy-app.yml"
                     '''
                 }
