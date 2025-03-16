@@ -225,11 +225,11 @@ pipeline {
             }
         }
 //                     cd C:\\Users\\mingx\\.jenkins\\workspace\\spring-petclinic-ci\\ansible-project
-        stage('Deploy to AWS EC2 with Ansible') {
+        stage('Deploy to AWS EC2') {
             steps {
                 script {
                     sh '''
-                    ssh -o StrictHostKeyChecking=no -i C:/Users/mingx/.ssh/DevOpsDeploy.pem ec2-user@54.235.40.107 "cd ~/ansible-project && ansible-playbook -i inventory.ini deploy-app.yml"
+                    wsl ssh -o StrictHostKeyChecking=no -i ~/.ssh/DevOpsDeploy.pem ec2-user@54.235.40.107 "cd ~/ansible-project && ansible-playbook -i inventory.ini deploy-app.yml"
                     '''
                 }
             }
