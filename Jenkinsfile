@@ -229,7 +229,7 @@ pipeline {
             steps {
                 script {
                    bat '''
-                    ssh -o StrictHostKeyChecking=no -i C:\\Users\\mingx\\.ssh\\DevOpsDeploy.pem ec2-user@107.21.72.33 "cd ~/ansible-project && ansible-playbook -i inventory.ini deploy-app.yml"
+                    ssh -o StrictHostKeyChecking=no -i C:\\Users\\mingx\\.ssh\\DevOpsDeploy.pem ec2-user@54.167.205.236 "cd ~/ansible-project && ansible-playbook -i inventory.ini deploy-app.yml"
                     '''
                 }
             }
