@@ -110,7 +110,7 @@ pipeline {
             steps {
                 script {
                     sh '''
-                    wsl ssh -o StrictHostKeyChecking=no -i /home/mingx/.ssh/DevOpsDeploy.pem ec2-user@54.242.14.148 "cd ~/ansible-project && ansible-playbook -i inventory.ini deploy-app.yml"
+                    ssh -o StrictHostKeyChecking=no -i /home/mingx/.ssh/DevOpsDeploy.pem ec2-user@54.242.14.148 "cd ~/ansible-project && ansible-playbook -i inventory.ini deploy-app.yml"
                     '''
                 }
             }
